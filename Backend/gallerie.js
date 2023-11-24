@@ -18,9 +18,9 @@ async function recupererTravaux() {
             let recupGallery = document.querySelector(".gallery");
             let figure = document.createElement("figure");
             let imageProjet = document.createElement("img");
-            imageProjet.src = travaux.imageUrl;
+            imageProjet.src = projet.imageUrl;
             let titreProjet = document.createElement("figcaption");
-            titreProjet.innerText = travaux.title;
+            titreProjet.innerText = projet.title;
 
             // Association des éléments parents/enfants
             recupGallery.appendChild(figure);
