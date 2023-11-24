@@ -1,7 +1,7 @@
 const urlAPI = "http://localhost:5678/api/works";
 
 async function recupererTravaux () {
-    let requete = fetch(urlAPI);
+    let requete = await fetch(urlAPI);
 
     if(!requete.ok) {
         console.log("Un problème est survenu");
