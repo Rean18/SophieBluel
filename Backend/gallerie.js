@@ -1,6 +1,6 @@
 const urlAPI = "http://localhost:5678/api/works";
 
-async function recupererTravaux () {
+async function recupererTravaux() {
     let requete = await fetch(urlAPI);
 
     if(!requete.ok) {
@@ -8,6 +8,7 @@ async function recupererTravaux () {
 
     } else {
         let travaux = await requete.json();
+        console.log(travaux);
 
         for(let i = 0; i < travaux.length; i++) {
 
