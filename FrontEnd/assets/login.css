@@ -63,3 +63,9 @@
     font-family: Work Sans;
     
 }
+
+#msg-erreur {
+    margin-top: 15px;
+    color: red;
+    
+}

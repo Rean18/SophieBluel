@@ -91,13 +91,45 @@ nav ul {
 
 }
 nav li {
-	padding: 0 10px;
+	padding: 0 30px;
 	font-size: 1.2em;
+	font-weight: 400;
+}
+
+nav a {
+	text-decoration: none;
+	color: #000000;
+	font-weight: 400;
+
+	
+}
+
+a:hover {
+	font-weight: 700;
 }
 
 li:hover {
-	color: #B1663C;
+	
+	font-weight: 700;
+	cursor: pointer;
+
 }
+
+.message-connexion {
+	margin : auto;
+	position: absolute;
+	left: 65%; top : 130px;
+	width: 200px;
+	padding: 10px;
+	text-align: center;
+	font-family: Syne;
+	font-weight: 700;
+	font-size: 16px;
+	color : #B1663C;
+	border-radius: 60px;
+	display: none;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -124,6 +156,34 @@ li:hover {
 #portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
+}
+
+.projet-titre {
+	height: 36px;
+	width: 300px;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+#btn-modifier-projets {
+	background-color: white;
+	border: none;
+	font-family: Work Sans;
+	font-weight: 400;
+	font-size: 14px;
+	cursor: pointer;
+
+}
+
+#btn-modifier-projets a {
+	text-decoration: none;
+	color :#000000;
+
+}
+
+#btn-modifier-projets:hover {
+	font-weight: bold;
 }
 
 .filtre {
