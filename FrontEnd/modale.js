@@ -63,6 +63,7 @@ const gestionAffichageImage = (travaux) => {
                 divPhotoModale.appendChild(divIconeCorbeille);
                 divIconeCorbeille.appendChild(boutonSupprimer);
                 boutonSupprimer.appendChild(iconeCorbeille);
+           }
             }
             /* SUpprimer les projets*/
             function supprimerProjet() {
@@ -70,18 +71,18 @@ const gestionAffichageImage = (travaux) => {
                 if (confirm("Êtes-vous surs de vouloir supprimer votre projet ?")) {
                    
                 
-                console.log("http://localhost:5678/api/works/" + Number(this.id));
+                console.log("http://localhost:5678/api/works/" + this.id);
                 console.log(window.localStorage.getItem("token"))
 
                 if (window.localStorage.getItem("token")) {
                     console.log("Le token est présent")
-                    boutonSupprimer = document.querySelector(".btn-supprimer-projet");
-                    console.log("projet à supprimer : " + Number(this.id))
-                    fetch("http://localhost:5678/api/works/" + Number(this.id), {
+                    // boutonSupprimer = document.querySelector(".btn-supprimer-projet");
+                    console.log("projet à supprimer : " + this.id)
+                    fetch("http://localhost:5678/api/works/" + this.id, {
                         method : "DELETE",
                         headers : {
                             'Accept': "*/*",
-                            'Authorization' : 'Bearer ' + window.localStorage.getItem("token")
+                            'Authorization' : 'Bearer ' + JSON.parse(localStorage.getItem("token"))
                         }
                     })
                     .then(reponse => {
@@ -89,7 +90,7 @@ const gestionAffichageImage = (travaux) => {
                             console.log("Echec de la suppression")
                         } else {
                         
-                        const projetASupprimer = boutonSupprimer.closest(".modale-photo");
+                        const projetASupprimer = this.closest(".modale-photo");
                         console.log("Projet supprimé");
                             projetASupprimer.remove();
     
@@ -104,7 +105,7 @@ const gestionAffichageImage = (travaux) => {
             
         }
 
-}
+
 
   function GererModale () {
         fetch(urlTravaux)
@@ -114,11 +115,11 @@ const gestionAffichageImage = (travaux) => {
             
             
 
-  fetch(urlTravaux)
-  .then(response => response.json())
-  .then(listeImage => {
-      document.querySelector(".modale-gallerie").textContent ="";
-      gestionAffichageImage(listeImage)
+        fetch("http://localhost:5678/api/works")
+        .then(response => response.json())
+        .then(listeImage => {
+            document.querySelector(".modale-gallerie").textContent ="";
+            gestionAffichageImage(listeImage)
 })
 
             

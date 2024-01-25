@@ -64,11 +64,7 @@ function seConnecter() {
         const numberUser = JSON.stringify(donnees.userId)
         window.localStorage.setItem("user",numberUser);
     })
-    .then(user => {
-        console.log(user);
-        const numberUser = JSON.stringify(user.userId)
-        window.localStorage.setItem("user",numberUser);
-    });         
+         
 });
         
     };

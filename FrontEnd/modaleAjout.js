@@ -1,5 +1,5 @@
 
-/* Gérer la modale pou l'ajout de nouveaux projets */
+/* Gérer la modale pour l'ajout de nouveaux projets */
 document.addEventListener('DOMContentLoaded', () => {
 
     btnAjouterProjet = document.getElementById("btn-ajout-photo");
@@ -31,23 +31,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     btnAjouterProjet.addEventListener("click", ouvrirModaleDeux);
-    btnRevenirModaleUn.addEventListener("click", fermerModale)
+    btnRevenirModaleUn.addEventListener("click", fermerModale);
     
-    
+    /* Ajouter un nouveau projet */
+const formAjout = document.querySelector(".form-ajout-projet");
+formAjout.addEventListener("submit", ajouterProjet);
+
+let imageUrl;
+let imageNom;
+
 function afficherPreview() {
     const imageNouveauProjet = document.getElementById('img-ajout');
     const imageInput = document.getElementById("import-photo");
-    // imageNouveauProjet.src = document.querySelector('#import-photo').value.split('\\')[document.querySelector('#import-photo').value.split('\\').length-1];
-    // console.log(document.querySelector('#import-photo').value.split('\\')[document.querySelector('#import-photo').value.split('\\').length-1]);
     const apercuNouveauProjet = document.querySelector(".insere-img");
     document.getElementById('import-photo').addEventListener('change', function() {
         if (this.files && this.files[0]) {
-            var reader = new FileReader();
+            imageUrl = this.files[0];
+            imageNom = imageUrl.name;
+            const reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('img-ajout').src = e.target.result;
-                // apercuNouveauProjet.innerHTML= "";
+                apercuNouveauProjet.innerHTML= "";
             };
-            reader.readAsDataURL(this.files[0]);
+            reader.readAsDataURL(imageUrl);
         }
     });        
 }
@@ -89,30 +95,59 @@ function ajouterProjet(event) {
         event.preventDefault();
         const formData = new FormData(formAjout);
         const titre = formData.get('titre');
-        const categorie = formData.get('categorie');
-        const imageNouveauProjet = formData.get('img-ajout');
-        console.log(titre)
+        let categorieId;
+        switch (formData.get('categorie')) {
+            case "Appartements":
+                categorieId = "2";
+            break;
+            case "Hotels & restaurants":
+                categorieId = "3";
+            break;
+            case "Objets":
+                categorieId = "1";
+            break;
+        }
+       
+    
+
+
+       
+        formData.append('id', 21);
+        formData.append('title', titre);
+        if (imageNom) {
+            formData.append("imageUrl", "http://localhost:5678/images/" + imageNom)
+        }
+        formData.append('categoryId', categorieId);
+        formData.append('userId', 1);
+        console.log(formData.get('id'));
+        console.log(formData.get('title'));
+        console.log(formData.get("imageUrl"));
+        console.log(formData.get('categoryId'));
+        console.log(formData.get('userId'));
 
         fetch('http://localhost:5678/api/works', {
             method : "POST",
             headers : {
                 'accept': 'application/json',
-                'Content-Type' : 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization' : 'Bearer ' + JSON.parse(localStorage.getItem("token"))
             },
-            body : {
-                "id": 0,
-                "title":titre,
-                "imageUrl": imageNouveauProjet,
-                "categoryId": categorie,
-                "userId": 0
+            body : formData
+        })
+        .then(response => {
+            if(!response.ok) {
+                console.log(response)
+            }
+            else {
+                effacerPreview();
             }
         })
-        effacerPreview();
+    
+        
+        
     }
 
-/* Ajouter un nouveau projet */
-const formAjout = document.querySelector(".form-ajout-projet");
-formAjout.addEventListener("submit", ajouterProjet);
+
 
 })
 
