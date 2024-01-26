@@ -44,6 +44,7 @@ function afficherPreview() {
     const imageNouveauProjet = document.getElementById('img-ajout');
     const imageInput = document.getElementById("import-photo");
     const apercuNouveauProjet = document.querySelector(".insere-img");
+
     document.getElementById('import-photo').addEventListener('change', function() {
         if (this.files && this.files[0]) {
             imageUrl = this.files[0];
@@ -93,32 +94,29 @@ function effacerPreview(e) {
 
 function ajouterProjet(event) {
         event.preventDefault();
-        const formData = new FormData(formAjout);
+        const formData = new FormData();
         const titre = formData.get('titre');
         let categorieId;
-        switch (formData.get('categorie')) {
+        switch (event.target.categorie.value) {
+            case "Objets":
+                categorieId = 1;
+            break;
             case "Appartements":
-                categorieId = "2";
+                categorieId = 2;
             break;
             case "Hotels & restaurants":
-                categorieId = "3";
-            break;
-            case "Objets":
-                categorieId = "1";
+                categorieId = 3;
             break;
         }
-       
-    
-
-
-       
-        formData.append('id', 21);
-        formData.append('title', titre);
-        if (imageNom) {
-            formData.append("imageUrl", "http://localhost:5678/images/" + imageNom)
-        }
-        formData.append('categoryId', categorieId);
+ 
+        // formData.append('id', 123000);
+        formData.append('title', event.target.titre.value);
+        // if (imageNom) {
+        //     formData.append("imageUrl","http://localhost:5678/images/" + imageNom)
+        // }
+        formData.append('category', categorieId);
         formData.append('userId', 1);
+        formData.append('image', imageUrl)
         console.log(formData.get('id'));
         console.log(formData.get('title'));
         console.log(formData.get("imageUrl"));
@@ -129,7 +127,7 @@ function ajouterProjet(event) {
             method : "POST",
             headers : {
                 'accept': 'application/json',
-                'Content-Type': 'multipart/form-data',
+                // 'Content-Type' : 'multipart/form-data',
                 'Authorization' : 'Bearer ' + JSON.parse(localStorage.getItem("token"))
             },
             body : formData

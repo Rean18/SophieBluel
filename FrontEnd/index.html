@@ -47,7 +47,7 @@
 		<div class="zone-ajout-photo">
 				<img id="img-ajout" src="./assets/icons/picture-svgrepo-com 1.png">
 			<div class="insere-img">
-				<input type="file" id="import-photo" name ="import-photo" accept="images/png, images/jpg" style="display:none">
+				<input type="file" id="import-photo" name ="import-photo" accept="images/png, images/jpg" style="display:none" required>
 				<label class="btn-import-photo" for="import-photo">+ Ajouter photo</label>
 				<p>jpg, png : 4mo max</p>
 			</div>
@@ -57,13 +57,13 @@
 				<fieldset>
 					<legend>Titre</legend>
 					<label for="titre">
-						<input type="text" name="titre" id="titre-projet"/>
+						<input type="text" name="titre" id="titre-projet" required>
 					</label>
 				</fieldset>
 				<fieldset>
 					<legend>Catégorie</legend>
 					<label for="categorie">
-						<select type="list" name="categorie">
+						<select type="list" name="categorie" required>
 							<option value="">  Sélectionner une catégorie</option>
 							<option id = "2" value="Appartements">Appartements</option>
 							<option id = "3" value="Hotels & restaurants">Hotels & restaurants</option>
