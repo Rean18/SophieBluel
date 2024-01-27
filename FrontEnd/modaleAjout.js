@@ -6,28 +6,26 @@ document.addEventListener('DOMContentLoaded', () => {
     let modaleDeux =null
     const ouvrirModaleDeux = function (e) {
         e.preventDefault()
-        document.querySelector('.modale-background.un').style.display="none"
-        const target = document.querySelector('.modale-background.deux')
-        target.style.display = "block"
-        modaleDeux = target
-        modaleDeux.addEventListener("click", fermerModale)
-        modaleDeux.querySelector(".fermer-modale").addEventListener("click", fermerModale)
-        modaleDeux.querySelector(".stop-propagation").addEventListener("click", stopPropagation)
-    
+        document.querySelector('.modale-background.un').style.display="none";
+        const target = document.querySelector('.modale-background.deux');
+        target.style.display = "block";
+        modaleDeux = target;
+        modaleDeux.addEventListener("click", fermerModale);
+        modaleDeux.querySelector(".fermer-modale").addEventListener("click", fermerModale);
+        modaleDeux.querySelector(".stop-propagation").addEventListener("click", stopPropagation);
     }
     
     const fermerModale = function (e) {
-        e.preventDefault()
-        modaleDeux.style.display = "none"
-        modaleDeux.removeEventListener("click", fermerModale)
-        modaleDeux.querySelector(".fermer-modale").removeEventListener("click", fermerModale)
-        modaleDeux.querySelector(".stop-propagation").removeEventListener("click", stopPropagation)
-        modaleDeux = null
-    
+        e.preventDefault();
+        modaleDeux.style.display = "none";
+        modaleDeux.removeEventListener("click", fermerModale);
+        modaleDeux.querySelector(".fermer-modale").removeEventListener("click", fermerModale);
+        modaleDeux.querySelector(".stop-propagation").removeEventListener("click", stopPropagation);
+        modaleDeux = null;
     }
     
     const stopPropagation = function (e) {
-        e.stopPropagation()
+        e.stopPropagation();
     }
     
     btnAjouterProjet.addEventListener("click", ouvrirModaleDeux);
@@ -38,17 +36,14 @@ const formAjout = document.querySelector(".form-ajout-projet");
 formAjout.addEventListener("submit", ajouterProjet);
 
 let imageUrl;
-let imageNom;
 
 function afficherPreview() {
-    const imageNouveauProjet = document.getElementById('img-ajout');
-    const imageInput = document.getElementById("import-photo");
+
     const apercuNouveauProjet = document.querySelector(".insere-img");
 
     document.getElementById('import-photo').addEventListener('change', function() {
         if (this.files && this.files[0]) {
             imageUrl = this.files[0];
-            imageNom = imageUrl.name;
             const reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('img-ajout').src = e.target.result;
@@ -67,7 +62,7 @@ function effacerPreview(e) {
     imageNouveauProjet.id = "img-ajout";
     imageNouveauProjet.src="./assets/icons/picture-svgrepo-com 1.png";
     const apercuNouveauProjet = document.createElement("div");
-    apercuNouveauProjet.className = ".insere-img";
+    apercuNouveauProjet.className = "insere-img";
     const imageInput = document.createElement("input");
     imageInput.id = "import-photo";
     imageInput.type = "file";
@@ -91,7 +86,36 @@ function effacerPreview(e) {
     afficherPreview();
 
 }
+function actualiserForm() {
+    
+    document.getElementById('titre-projet').value="";
+    document.getElementById('select-categorie').value = "";
 
+    // j'ouvre la modale 1
+    document.querySelector('.modale-gallerie').innerHTML="";
+    const target = document.querySelector('.modale-background.un');
+    target.style.display = "block";
+    modale = target;
+    modale.addEventListener("click", fermerModale);
+    modale.querySelector(".fermer-modale").addEventListener("click", fermerModale);
+    modale.querySelector(".stop-propagation").addEventListener("click", stopPropagation);
+
+    // Je ferme la modale 2
+
+    modaleDeux.style.display = "none";
+    modaleDeux.removeEventListener("click", fermerModale);
+    modaleDeux.querySelector(".fermer-modale").removeEventListener("click", fermerModale);
+    modaleDeux.querySelector(".stop-propagation").removeEventListener("click", stopPropagation);
+    modaleDeux = null;
+
+    gererModale();
+    document.querySelector(".gallery").innerHTML="";
+    console.log("gallerie vidée")
+    recupererTravauxParCategorie([1,2,3]);
+    console.log("gallerie affichée de nouveau")
+
+
+}
 function ajouterProjet(event) {
         event.preventDefault();
         const formData = new FormData();
@@ -108,43 +132,39 @@ function ajouterProjet(event) {
                 categorieId = 3;
             break;
         }
- 
-        // formData.append('id', 123000);
         formData.append('title', event.target.titre.value);
-        // if (imageNom) {
-        //     formData.append("imageUrl","http://localhost:5678/images/" + imageNom)
-        // }
         formData.append('category', categorieId);
-        formData.append('userId', 1);
         formData.append('image', imageUrl)
-        console.log(formData.get('id'));
-        console.log(formData.get('title'));
-        console.log(formData.get("imageUrl"));
-        console.log(formData.get('categoryId'));
-        console.log(formData.get('userId'));
 
         fetch('http://localhost:5678/api/works', {
             method : "POST",
             headers : {
                 'accept': 'application/json',
-                // 'Content-Type' : 'multipart/form-data',
                 'Authorization' : 'Bearer ' + JSON.parse(localStorage.getItem("token"))
             },
             body : formData
         })
         .then(response => {
             if(!response.ok) {
-                console.log(response)
+                console.log(response);
             }
             else {
+                console.log(response)
                 effacerPreview();
+                actualiserForm();
+                const messageForm = document.querySelector('.msg-form');
+                setTimeout(function() {
+                    messageForm.textContent="Votre projet a bien été ajouté !"
+                    messageForm.style.display ="block";
+
+                }, 400)
+                setTimeout(function() {
+                    messageForm.style.display="none";
+                }, 4000);
             }
         })
-    
-        
-        
-    }
 
+    }
 
 
 })

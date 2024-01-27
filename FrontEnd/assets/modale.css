@@ -250,3 +250,10 @@
     transform: translateY(-50%);
     pointer-events: none;
 }
+
+.msg-form {
+    margin-top: 30px;
+    color: #1D6154;
+    text-align: center;
+    display: none;
+}

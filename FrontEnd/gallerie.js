@@ -14,6 +14,7 @@ const urlTravaux = "http://localhost:5678/api/works";
 
 }
 
+
  async function recupererTravauxParCategorie(categorie) {
     const travaux = await recupererTravaux();
 
@@ -42,7 +43,7 @@ const urlTravaux = "http://localhost:5678/api/works";
 
     }
  }
-
+ window.recupererTravauxParCategorie = recupererTravauxParCategorie;
  recupererTravauxParCategorie([1,2,3]);
 
 async function boutonFiltrage() {

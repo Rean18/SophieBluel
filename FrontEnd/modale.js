@@ -36,7 +36,7 @@ btnRevenirModaleUn = document.getElementById("btn-revenir-modale1");
 btnRevenirModaleUn.addEventListener("click", ouvrirModale)
 
 /* Afficher les projets avec une requête fetch */
-const gestionAffichageImage = (travaux) => {
+ const gestionAffichageImage = (travaux) => {
            for(let i = 0; i < travaux.length; i++) {
 
                 let projetMini = travaux[i];
@@ -65,6 +65,7 @@ const gestionAffichageImage = (travaux) => {
                 boutonSupprimer.appendChild(iconeCorbeille);
            }
             }
+            window.gestionAffichageImage = gestionAffichageImage;
             /* SUpprimer les projets*/
             function supprimerProjet() {
 
@@ -93,6 +94,20 @@ const gestionAffichageImage = (travaux) => {
                         const projetASupprimer = this.closest(".modale-photo");
                         console.log("Projet supprimé");
                             projetASupprimer.remove();
+                            document.querySelector(".gallery").innerHTML="";
+                            console.log("gallerie vidée")
+                            recupererTravauxParCategorie([1,2,3]);
+                            console.log("gallerie affichée de nouveau")
+                            const messageForm = document.querySelector('.msg-form');
+                            setTimeout(function() {
+                                messageForm.textContent="Votre projet a bien été supprimé !"
+                                messageForm.style.color = "red";
+                                messageForm.style.display ="block";
+            
+                            }, 400)
+                            setTimeout(function() {
+                                messageForm.style.display="none";
+                            }, 4000);
     
                         }
                     }) 
@@ -104,17 +119,14 @@ const gestionAffichageImage = (travaux) => {
             }
             
         }
+        window.supprimerProjet = supprimerProjet;
 
 
-
-  function GererModale () {
+        function gererModale () {
         fetch(urlTravaux)
         .then(response => response.json())
         .then(travaux => {
             gestionAffichageImage(travaux);
-            
-            
-
         fetch("http://localhost:5678/api/works")
         .then(response => response.json())
         .then(listeImage => {
@@ -122,16 +134,13 @@ const gestionAffichageImage = (travaux) => {
             gestionAffichageImage(listeImage)
 })
 
-            
-            
-    
-        
         })
             
     }
+    window.gererModale = gererModale;
 
 
-GererModale();
+gererModale();
 
 
 
