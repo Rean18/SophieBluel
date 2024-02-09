@@ -86,13 +86,14 @@ function effacerPreview(e) {
     afficherPreview();
 
 }
+
 function actualiserForm() {
     
     document.getElementById('titre-projet').value="";
     document.getElementById('select-categorie').value = "";
 
     // j'ouvre la modale 1
-    document.querySelector('.modale-gallerie').innerHTML="";
+    document.querySelector('.modale-galerie').innerHTML="";
     const target = document.querySelector('.modale-background.un');
     target.style.display = "block";
     modale = target;
@@ -110,12 +111,13 @@ function actualiserForm() {
 
     gererModale();
     document.querySelector(".gallery").innerHTML="";
-    console.log("gallerie vidée")
+    console.log("galerie vidée")
     recupererTravauxParCategorie([1,2,3]);
-    console.log("gallerie affichée de nouveau")
+    console.log("galerie affichée de nouveau")
 
 
 }
+
 function ajouterProjet(event) {
         event.preventDefault();
         const formData = new FormData();
@@ -156,6 +158,7 @@ function ajouterProjet(event) {
                 setTimeout(function() {
                     messageForm.textContent="Votre projet a bien été ajouté !"
                     messageForm.style.display ="block";
+                    messageForm.style.color = "#1D6154"
 
                 }, 400)
                 setTimeout(function() {

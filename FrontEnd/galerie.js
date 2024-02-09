@@ -14,7 +14,7 @@ const urlTravaux = "http://localhost:5678/api/works";
 
 }
 
-
+// Fonction 1 : Création des éléments HTML 
  async function recupererTravauxParCategorie(categorie) {
     const travaux = await recupererTravaux();
 
@@ -27,7 +27,7 @@ const urlTravaux = "http://localhost:5678/api/works";
 
         let projet = travauxFiltres[i];
 
-        // Création des éléments et du contenu de la gallerie
+        // Création des éléments et du contenu de la galerie
         let recupGallery = document.querySelector(".gallery");
         let figure = document.createElement("figure");
         let imageProjet = document.createElement("img");
@@ -43,9 +43,12 @@ const urlTravaux = "http://localhost:5678/api/works";
 
     }
  }
+ // Me permet de réutiliser cette fonction dans d'autres scripts
  window.recupererTravauxParCategorie = recupererTravauxParCategorie;
  recupererTravauxParCategorie([1,2,3]);
 
+
+ // Fonction 2 qui crée des évènements click sur les différents boutons de filtrage 
 async function boutonFiltrage() {
     const boutonTous = document.querySelector(".btn-tous");
     const boutonFiltreObjet = document.querySelector(".btn-objet");

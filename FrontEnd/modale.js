@@ -42,7 +42,7 @@ btnRevenirModaleUn.addEventListener("click", ouvrirModale)
                 let projetMini = travaux[i];
                 console.log(projetMini.img); 
 
-                const divGallerieModale = document.querySelector(".modale-gallerie");
+                const divGalerieModale = document.querySelector(".modale-galerie");
                 const divPhotoModale = document.createElement("div")
                 divPhotoModale.className = "modale-photo";
                 divPhotoModale.id = projetMini.id;
@@ -58,7 +58,7 @@ btnRevenirModaleUn.addEventListener("click", ouvrirModale)
                 iconeCorbeille.className ="fa-solid fa-trash";
                 iconeCorbeille.style.color = "white";
 
-                divGallerieModale.appendChild(divPhotoModale);
+                divGalerieModale.appendChild(divPhotoModale);
                 divPhotoModale.appendChild(photoModale);
                 divPhotoModale.appendChild(divIconeCorbeille);
                 divIconeCorbeille.appendChild(boutonSupprimer);
@@ -66,7 +66,9 @@ btnRevenirModaleUn.addEventListener("click", ouvrirModale)
            }
             }
             window.gestionAffichageImage = gestionAffichageImage;
-            /* SUpprimer les projets*/
+
+
+            /* Supprimer les projets*/
             function supprimerProjet() {
 
                 if (confirm("Êtes-vous surs de vouloir supprimer votre projet ?")) {
@@ -95,9 +97,9 @@ btnRevenirModaleUn.addEventListener("click", ouvrirModale)
                         console.log("Projet supprimé");
                             projetASupprimer.remove();
                             document.querySelector(".gallery").innerHTML="";
-                            console.log("gallerie vidée")
+                            console.log("galerie vidée")
                             recupererTravauxParCategorie([1,2,3]);
-                            console.log("gallerie affichée de nouveau")
+                            console.log("galerie affichée de nouveau")
                             const messageForm = document.querySelector('.msg-form');
                             setTimeout(function() {
                                 messageForm.textContent="Votre projet a bien été supprimé !"
@@ -130,7 +132,7 @@ btnRevenirModaleUn.addEventListener("click", ouvrirModale)
         fetch("http://localhost:5678/api/works")
         .then(response => response.json())
         .then(listeImage => {
-            document.querySelector(".modale-gallerie").textContent ="";
+            document.querySelector(".modale-galerie").textContent ="";
             gestionAffichageImage(listeImage)
 })
 
