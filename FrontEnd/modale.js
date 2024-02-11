@@ -128,13 +128,13 @@ btnRevenirModaleUn.addEventListener("click", ouvrirModale)
         fetch(urlTravaux)
         .then(response => response.json())
         .then(travaux => {
-            gestionAffichageImage(travaux);
-        fetch("http://localhost:5678/api/works")
-        .then(response => response.json())
-        .then(listeImage => {
+        //     gestionAffichageImage(travaux);
+        // fetch("http://localhost:5678/api/works")
+        // .then(response => response.json())
+        // .then(listeImage => {
             document.querySelector(".modale-galerie").textContent ="";
-            gestionAffichageImage(listeImage)
-})
+            gestionAffichageImage(travaux)
+// })
 
         })
             
