@@ -28,9 +28,10 @@ function seConnecter() {
         password : motDePasse
     };
 
-    const identifiantsJson = JSON.stringify(identifiants);  // pour inverser "json.parse()"
+    const identifiantsJson = JSON.stringify(identifiants);  
    
-         fetch(urlConnexion, {   // utiliser then
+    // Envoie des données sur le backend
+         fetch(urlConnexion, {  
             method: "POST",
             headers: {
                 "Accept": "application/json",
@@ -38,7 +39,7 @@ function seConnecter() {
             }, 
             body: identifiantsJson
         })
-        
+    //Vérfification des données du formulaires
      .then(reponse =>{
         console.log('Réponse du serveur :', reponse);
                 if(reponse.status === 401 || reponse.status === 404) {
@@ -56,7 +57,7 @@ function seConnecter() {
                 
         }
     })
-    
+    // Récupération du token et de userId et sauvegarde dans le localStorage
     .then(donnees => {
         console.log(donnees);
         const tokenUser = JSON.stringify(donnees.token)
@@ -64,11 +65,7 @@ function seConnecter() {
         const numberUser = JSON.stringify(donnees.userId)
         window.localStorage.setItem("user",numberUser);
     })
-    .then(user => {
-        console.log(user);
-        const numberUser = JSON.stringify(user.userId)
-        window.localStorage.setItem("user",numberUser);
-    });         
+         
 });
         
     };

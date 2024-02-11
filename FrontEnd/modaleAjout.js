@@ -1,53 +1,55 @@
 
-/* Gérer la modale pou l'ajout de nouveaux projets */
+/* Gérer la modale pour l'ajout de nouveaux projets */
 document.addEventListener('DOMContentLoaded', () => {
 
     btnAjouterProjet = document.getElementById("btn-ajout-photo");
     let modaleDeux =null
     const ouvrirModaleDeux = function (e) {
         e.preventDefault()
-        document.querySelector('.modale-background.un').style.display="none"
-        const target = document.querySelector('.modale-background.deux')
-        target.style.display = "block"
-        modaleDeux = target
-        modaleDeux.addEventListener("click", fermerModale)
-        modaleDeux.querySelector(".fermer-modale").addEventListener("click", fermerModale)
-        modaleDeux.querySelector(".stop-propagation").addEventListener("click", stopPropagation)
-    
+        document.querySelector('.modale-background.un').style.display="none";
+        const target = document.querySelector('.modale-background.deux');
+        target.style.display = "block";
+        modaleDeux = target;
+        modaleDeux.addEventListener("click", fermerModale);
+        modaleDeux.querySelector(".fermer-modale").addEventListener("click", fermerModale);
+        modaleDeux.querySelector(".stop-propagation").addEventListener("click", stopPropagation);
     }
     
     const fermerModale = function (e) {
-        e.preventDefault()
-        modaleDeux.style.display = "none"
-        modaleDeux.removeEventListener("click", fermerModale)
-        modaleDeux.querySelector(".fermer-modale").removeEventListener("click", fermerModale)
-        modaleDeux.querySelector(".stop-propagation").removeEventListener("click", stopPropagation)
-        modaleDeux = null
-    
+        e.preventDefault();
+        modaleDeux.style.display = "none";
+        modaleDeux.removeEventListener("click", fermerModale);
+        modaleDeux.querySelector(".fermer-modale").removeEventListener("click", fermerModale);
+        modaleDeux.querySelector(".stop-propagation").removeEventListener("click", stopPropagation);
+        modaleDeux = null;
     }
     
     const stopPropagation = function (e) {
-        e.stopPropagation()
+        e.stopPropagation();
     }
     
     btnAjouterProjet.addEventListener("click", ouvrirModaleDeux);
-    btnRevenirModaleUn.addEventListener("click", fermerModale)
+    btnRevenirModaleUn.addEventListener("click", fermerModale);
     
-    
+    /* Ajouter un nouveau projet */
+const formAjout = document.querySelector(".form-ajout-projet");
+formAjout.addEventListener("submit", ajouterProjet);
+
+let imageUrl;
+
 function afficherPreview() {
-    const imageNouveauProjet = document.getElementById('img-ajout');
-    const imageInput = document.getElementById("import-photo");
-    // imageNouveauProjet.src = document.querySelector('#import-photo').value.split('\\')[document.querySelector('#import-photo').value.split('\\').length-1];
-    // console.log(document.querySelector('#import-photo').value.split('\\')[document.querySelector('#import-photo').value.split('\\').length-1]);
+
     const apercuNouveauProjet = document.querySelector(".insere-img");
+
     document.getElementById('import-photo').addEventListener('change', function() {
         if (this.files && this.files[0]) {
-            var reader = new FileReader();
+            imageUrl = this.files[0];
+            const reader = new FileReader();
             reader.onload = function(e) {
                 document.getElementById('img-ajout').src = e.target.result;
-                // apercuNouveauProjet.innerHTML= "";
+                apercuNouveauProjet.innerHTML= "";
             };
-            reader.readAsDataURL(this.files[0]);
+            reader.readAsDataURL(imageUrl);
         }
     });        
 }
@@ -60,7 +62,7 @@ function effacerPreview(e) {
     imageNouveauProjet.id = "img-ajout";
     imageNouveauProjet.src="./assets/icons/picture-svgrepo-com 1.png";
     const apercuNouveauProjet = document.createElement("div");
-    apercuNouveauProjet.className = ".insere-img";
+    apercuNouveauProjet.className = "insere-img";
     const imageInput = document.createElement("input");
     imageInput.id = "import-photo";
     imageInput.type = "file";
@@ -85,34 +87,88 @@ function effacerPreview(e) {
 
 }
 
+function actualiserForm() {
+    
+    document.getElementById('titre-projet').value="";
+    document.getElementById('select-categorie').value = "";
+
+    // j'ouvre la modale 1
+    document.querySelector('.modale-galerie').innerHTML="";
+    const target = document.querySelector('.modale-background.un');
+    target.style.display = "block";
+    modale = target;
+    modale.addEventListener("click", fermerModale);
+    modale.querySelector(".fermer-modale").addEventListener("click", fermerModale);
+    modale.querySelector(".stop-propagation").addEventListener("click", stopPropagation);
+
+    // Je ferme la modale 2
+
+    modaleDeux.style.display = "none";
+    modaleDeux.removeEventListener("click", fermerModale);
+    modaleDeux.querySelector(".fermer-modale").removeEventListener("click", fermerModale);
+    modaleDeux.querySelector(".stop-propagation").removeEventListener("click", stopPropagation);
+    modaleDeux = null;
+
+    gererModale();
+    document.querySelector(".gallery").innerHTML="";
+    console.log("galerie vidée")
+    recupererTravauxParCategorie([1,2,3]);
+    console.log("galerie affichée de nouveau")
+
+
+}
+
 function ajouterProjet(event) {
         event.preventDefault();
-        const formData = new FormData(formAjout);
+        const formData = new FormData();
         const titre = formData.get('titre');
-        const categorie = formData.get('categorie');
-        const imageNouveauProjet = formData.get('img-ajout');
-        console.log(titre)
+        let categorieId;
+        switch (event.target.categorie.value) {
+            case "Objets":
+                categorieId = 1;
+            break;
+            case "Appartements":
+                categorieId = 2;
+            break;
+            case "Hotels & restaurants":
+                categorieId = 3;
+            break;
+        }
+        formData.append('title', event.target.titre.value);
+        formData.append('category', categorieId);
+        formData.append('image', imageUrl)
 
         fetch('http://localhost:5678/api/works', {
             method : "POST",
             headers : {
                 'accept': 'application/json',
-                'Content-Type' : 'multipart/form-data'
+                'Authorization' : 'Bearer ' + JSON.parse(localStorage.getItem("token"))
             },
-            body : {
-                "id": 0,
-                "title":titre,
-                "imageUrl": imageNouveauProjet,
-                "categoryId": categorie,
-                "userId": 0
+            body : formData
+        })
+        .then(response => {
+            if(!response.ok) {
+                console.log(response);
+            }
+            else {
+                console.log(response)
+                effacerPreview();
+                actualiserForm();
+                const messageForm = document.querySelector('.msg-form');
+                setTimeout(function() {
+                    messageForm.textContent="Votre projet a bien été ajouté !"
+                    messageForm.style.display ="block";
+                    messageForm.style.color = "#1D6154"
+
+                }, 400)
+                setTimeout(function() {
+                    messageForm.style.display="none";
+                }, 4000);
             }
         })
-        effacerPreview();
+
     }
 
-/* Ajouter un nouveau projet */
-const formAjout = document.querySelector(".form-ajout-projet");
-formAjout.addEventListener("submit", ajouterProjet);
 
 })
 

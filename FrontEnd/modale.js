@@ -36,13 +36,13 @@ btnRevenirModaleUn = document.getElementById("btn-revenir-modale1");
 btnRevenirModaleUn.addEventListener("click", ouvrirModale)
 
 /* Afficher les projets avec une requête fetch */
-const gestionAffichageImage = (travaux) => {
+ const gestionAffichageImage = (travaux) => {
            for(let i = 0; i < travaux.length; i++) {
 
                 let projetMini = travaux[i];
                 console.log(projetMini.img); 
 
-                const divGallerieModale = document.querySelector(".modale-gallerie");
+                const divGalerieModale = document.querySelector(".modale-galerie");
                 const divPhotoModale = document.createElement("div")
                 divPhotoModale.className = "modale-photo";
                 divPhotoModale.id = projetMini.id;
@@ -58,30 +58,34 @@ const gestionAffichageImage = (travaux) => {
                 iconeCorbeille.className ="fa-solid fa-trash";
                 iconeCorbeille.style.color = "white";
 
-                divGallerieModale.appendChild(divPhotoModale);
+                divGalerieModale.appendChild(divPhotoModale);
                 divPhotoModale.appendChild(photoModale);
                 divPhotoModale.appendChild(divIconeCorbeille);
                 divIconeCorbeille.appendChild(boutonSupprimer);
                 boutonSupprimer.appendChild(iconeCorbeille);
+           }
             }
-            /* SUpprimer les projets*/
+            window.gestionAffichageImage = gestionAffichageImage;
+
+
+            /* Supprimer les projets*/
             function supprimerProjet() {
 
                 if (confirm("Êtes-vous surs de vouloir supprimer votre projet ?")) {
                    
                 
-                console.log("http://localhost:5678/api/works/" + Number(this.id));
+                console.log("http://localhost:5678/api/works/" + this.id);
                 console.log(window.localStorage.getItem("token"))
 
                 if (window.localStorage.getItem("token")) {
                     console.log("Le token est présent")
-                    boutonSupprimer = document.querySelector(".btn-supprimer-projet");
-                    console.log("projet à supprimer : " + Number(this.id))
-                    fetch("http://localhost:5678/api/works/" + Number(this.id), {
+                    // boutonSupprimer = document.querySelector(".btn-supprimer-projet");
+                    console.log("projet à supprimer : " + this.id)
+                    fetch("http://localhost:5678/api/works/" + this.id, {
                         method : "DELETE",
                         headers : {
                             'Accept': "*/*",
-                            'Authorization' : 'Bearer ' + window.localStorage.getItem("token")
+                            'Authorization' : 'Bearer ' + JSON.parse(localStorage.getItem("token"))
                         }
                     })
                     .then(reponse => {
@@ -89,9 +93,23 @@ const gestionAffichageImage = (travaux) => {
                             console.log("Echec de la suppression")
                         } else {
                         
-                        const projetASupprimer = boutonSupprimer.closest(".modale-photo");
+                        const projetASupprimer = this.closest(".modale-photo");
                         console.log("Projet supprimé");
                             projetASupprimer.remove();
+                            document.querySelector(".gallery").innerHTML="";
+                            console.log("galerie vidée")
+                            recupererTravauxParCategorie([1,2,3]);
+                            console.log("galerie affichée de nouveau")
+                            const messageForm = document.querySelector('.msg-form');
+                            setTimeout(function() {
+                                messageForm.textContent="Votre projet a bien été supprimé !"
+                                messageForm.style.color = "red";
+                                messageForm.style.display ="block";
+            
+                            }, 400)
+                            setTimeout(function() {
+                                messageForm.style.display="none";
+                            }, 4000);
     
                         }
                     }) 
@@ -103,34 +121,28 @@ const gestionAffichageImage = (travaux) => {
             }
             
         }
+        window.supprimerProjet = supprimerProjet;
 
-}
 
-  function GererModale () {
+        function gererModale () {
         fetch(urlTravaux)
         .then(response => response.json())
         .then(travaux => {
-            gestionAffichageImage(travaux);
-            
-            
+        //     gestionAffichageImage(travaux);
+        // fetch("http://localhost:5678/api/works")
+        // .then(response => response.json())
+        // .then(listeImage => {
+            document.querySelector(".modale-galerie").textContent ="";
+            gestionAffichageImage(travaux)
+// })
 
-  fetch(urlTravaux)
-  .then(response => response.json())
-  .then(listeImage => {
-      document.querySelector(".modale-gallerie").textContent ="";
-      gestionAffichageImage(listeImage)
-})
-
-            
-            
-    
-        
         })
             
     }
+    window.gererModale = gererModale;
 
 
-GererModale();
+gererModale();
 
 
 

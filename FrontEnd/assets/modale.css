@@ -68,7 +68,7 @@
     
 }
 
-.modale-gallerie {
+.modale-galerie {
     margin: 0px 80px;
     width: auto;
     height: auto;
@@ -77,6 +77,7 @@
     row-gap: 20px;
     flex-wrap: wrap;
     column-gap: 5px;
+    overflow-y: scroll;
 
    
 }
@@ -197,6 +198,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    overflow-y: scroll;
 }
 
 .form-modale {
@@ -247,4 +249,11 @@
     top: 8px;
     transform: translateY(-50%);
     pointer-events: none;
+}
+
+.msg-form {
+    margin-top: 30px;
+    color: #1D6154;
+    text-align: center;
+    display: none;
 }
