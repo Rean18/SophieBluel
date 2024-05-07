@@ -1,7 +1,10 @@
 <h1>Sophie Bluel : site vitrine d'une architecte d'intérieur</h1>
 
+![Sophie bluel démo ordi](https://github.com/Rean18/SophieBluel/assets/37306114/5177eae8-b5b2-400d-8108-faaf4b0b0b36)
+
+
 <h2>Description</h2>
-Ce projet vise à créer un site portfolio dynamique pour une architecte d'intérieur. Le site permettra de présenter les travaux de l'architecte, offrir un accès administratif pour la gestion des contenus, et permettre l'upload de nouveaux médias via une interface utilisateur soignée et responsive.
+Ce projet vise à créer un site portfolio dynamique pour une architecte d'intérieur. Le site permettra de présenter les travaux de l'architecte, offrir un accès administratif pour la gestion des contenus, et permettre l'upload de nouveaux médias via une interface utilisateur soignée.
 
 <h2>Objectifs</h2>
 <ul>
