@@ -1,25 +1,77 @@
-<h1>Projet Sophie Bluel : site vitrine d'une architecte d'intérieur</h1>
+# 🏛️ Projet Sophie Bluel – Site Vitrine d'une Architecte d'Intérieur
 
-![Sophie bluel démo ordi](https://github.com/Rean18/SophieBluel/assets/37306114/5177eae8-b5b2-400d-8108-faaf4b0b0b36)
+![Sophie Bluel Démo Desktop](https://github.com/Rean18/SophieBluel/assets/37306114/5177eae8-b5b2-400d-8108-faaf4b0b0b36)
 
+---
 
-<h2>Description du projet</h2>
-Ce projet vise à créer un site portfolio dynamique pour une architecte d'intérieur. Le site permettra de présenter les travaux de l'architecte, offrir un accès administratif pour la gestion des contenus, et permettre l'upload de nouveaux médias via une interface utilisateur soignée.
+## 🎯 Description du Projet
 
-<h2>Objectifs du projet</h2>
-<ul>
-<li>Développer la page de présentation des travaux de l'architecte.</li>
- <li>Créer une page de connexion pour l'administrateur.</li>
- <li>Implementer une modale pour uploader de nouveaux médias.</li>
-</ul>
+Ce projet a pour objectif de créer un **site portfolio dynamique** pour une architecte d'intérieur, **Sophie Bluel**.  
+Le site permet de :
 
-<h2>Technologies utilisées</h2>
-<b>HTML/CSS :</b> Structure et style de base des pages. <br>
-<b>JavaScript :</b> Pour la dynamique du site, gestion des événements, manipulation DOM, et communication avec l'API backend.<br>
-<b>Visual Studio Code :</b> IDE pour le développement.<br>
-<b>GitHub :</b> Pour la gestion de version et le suivi des modifications.
+- Présenter les réalisations professionnelles de l'architecte,
+- Offrir une interface d'administration pour gérer les contenus,
+- Intégrer une modale d'upload de médias via une interface utilisateur fluide.
 
-<h2>Fonctionnalités</h2>
-<b>Page de Présentation :</b> Affichage des travaux de l'architecte avec possibilité de navigation entre les différents projets.<br>
-<b>Page de Connexion Administrateur :</b> Sécurisation de l'accès aux fonctionnalités d'administration.<br>
-<b>Modale d'Upload de Médias :</b> Interface pour ajouter de nouveaux projets ou photos aux portfolios existants.<br>
+---
+
+## 📌 Objectifs
+
+- Développer une page de **présentation des projets**.
+- Créer une **page de connexion sécurisée** pour l’administrateur.
+- Implémenter une **modale** pour l’upload de nouveaux médias.
+
+---
+
+## 🛠️ Technologies Utilisées
+
+- **HTML / CSS** : Structure et mise en forme du site.
+- **JavaScript** : Dynamique du site, interactions utilisateurs, appels API, manipulation DOM.
+- **Visual Studio Code** : Environnement de développement.
+- **GitHub** : Gestion de version, suivi du code et collaboration.
+
+---
+
+## 🚀 Fonctionnalités Clés
+
+- **Page Portfolio** : Affichage dynamique des projets avec filtres par catégorie.
+- **Connexion Administrateur** : Authentification sécurisée pour accéder à l’espace d’administration.
+- **Modale d’Upload** : Interface intuitive pour ajouter de nouveaux projets ou visuels au site.
+
+---
+
+## ⚙️ Installation et Lancement en Local
+
+### 1. Cloner les dépôts
+
+Commencez par cloner **les deux dépôts** : le frontend et le backend.
+
+```bash
+git clone https://github.com/votre-utilisateur/Portfolio-architecte-sophie-bluel.git
+git clone https://github.com/votre-utilisateur/SophieBluel-Backend.git
+```
+
+### 2. Lancer le Backend
+```bash
+cd SophieBluel-Backend
+npm install
+npm start
+```
+Le backend sera accessible à l’adresse : http://localhost:5678.
+
+💡 Vous pouvez accéder à la documentation de l’API via Swagger :
+http://localhost:5678/api-docs
+(Pensez à utiliser Chrome ou Firefox)
+
+## Compte de test
+```bash
+email: sophie.bluel@test.tld
+password: S0phie
+```
+
+### 3. Lancer le Frontend
+```bash
+cd Portfolio-architecte-sophie-bluel
+# Ouvrez le fichier index.html dans votre navigateur (Live Server recommandé)
+```
+Assurez-vous que le backend fonctionne avant de tester les fonctionnalités dynamiques du frontend.
